@@ -84,8 +84,8 @@ VALUES (
     2000,
     3,
     2,
-    'Lot''s of surrounding trails and forest destinations nearby. The house is on an quiet road and has a 1/4 acre yard, no HOA.',
     'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'Lot''s of surrounding trails and forest destinations nearby. The house is on an quiet road and has a 1/4 acre yard, no HOA.',
     358000,
     false,
     '67e1d5c3643b99e3ead7997b'

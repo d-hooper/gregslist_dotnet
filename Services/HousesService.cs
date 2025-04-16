@@ -36,6 +36,28 @@ public class HousesService
     return house;
   }
 
+  internal House UpdateHouse(int houseId, Account userInfo, House houseData)
+  {
+    House house = GetHouseById(houseId);
+
+    if (house.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"you cannot update houses created by other users {userInfo.Name}".ToUpper());
+    }
+
+    house.Sqft = houseData.Sqft ?? house.Sqft;
+    house.Bedrooms = houseData.Bedrooms ?? house.Bedrooms;
+    house.Bathrooms = houseData.Bathrooms ?? house.Bathrooms;
+    house.Price = houseData.Price ?? house.Price;
+    house.HasPool = houseData.HasPool ?? house.HasPool;
+    house.Description = houseData.Description ?? house.Description;
+    house.ImgUrl = houseData.ImgUrl ?? house.ImgUrl;
+
+    _repository.UpdatedHouse(house);
+
+    return house;
+  }
+
   internal string DeleteHouse(int houseId, Account userInfo)
   {
 

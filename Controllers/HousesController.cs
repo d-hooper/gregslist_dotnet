@@ -64,6 +64,23 @@ public class HousesController : ControllerBase
     }
   }
 
+  [Authorize, HttpPut("{houseId}")]
+  public async Task<ActionResult<House>> UpdateHouse(int houseId, [FromBody] House updatedHouseData)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      House house = _housesService.UpdateHouse(houseId, userInfo, updatedHouseData);
+      return house;
+    }
+    catch (Exception exception)
+    {
+
+      return BadRequest(exception.Message);
+    }
+  }
+
   [Authorize, HttpDelete("{houseId}")]
   public async Task<ActionResult<string>> DeleteHouse(int houseId)
   {

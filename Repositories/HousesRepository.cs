@@ -69,6 +69,32 @@ public class HousesRepository
     }, houseData).SingleOrDefault();
     return newHouse;
   }
+  internal void UpdatedHouse(House house)
+  {
+    string sql = @"
+    UPDATE houses
+    SET
+    sqft = @Sqft, 
+    bedrooms = @Bedrooms, 
+    bathrooms = @Bathrooms, 
+    img_url = @ImgUrl, 
+    description = @Description, 
+    price = @Price, 
+    has_pool = @HasPool
+    WHERE id = @Id;";
+
+    int rowsAffected = _db.Execute(sql, house);
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No entries were updated");
+    }
+
+    if (rowsAffected > 1)
+    {
+      throw new Exception($"Multiple({rowsAffected}) entries were updated. Please contact support.");
+    }
+  }
 
   internal void DeleteHouse(int houseId)
   {
@@ -87,4 +113,5 @@ public class HousesRepository
       throw new Exception($"Multiple({rowsAffected}) entries were deleted. Please contact support.");
     }
   }
+
 }
