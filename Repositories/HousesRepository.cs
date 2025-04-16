@@ -1,6 +1,7 @@
 
 
 
+
 namespace gregslist_dotnet.Repositories;
 
 public class HousesRepository
@@ -67,5 +68,23 @@ public class HousesRepository
       return house;
     }, houseData).SingleOrDefault();
     return newHouse;
+  }
+
+  internal void DeleteHouse(int houseId)
+  {
+    string sql = @"
+    DELETE FROM houses WHERE id = @houseId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { houseId });
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No entries were deleted");
+    }
+
+    if (rowsAffected > 1)
+    {
+      throw new Exception($"Multiple({rowsAffected}) entries were deleted. Please contact support.");
+    }
   }
 }

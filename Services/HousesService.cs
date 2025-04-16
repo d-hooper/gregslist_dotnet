@@ -35,4 +35,19 @@ public class HousesService
     House house = _repository.CreateHouse(houseData);
     return house;
   }
+
+  internal string DeleteHouse(int houseId, Account userInfo)
+  {
+
+    House house = GetHouseById(houseId);
+
+    if (house.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"you cannot delete houses created by other users {userInfo.Name}".ToUpper());
+    }
+
+    _repository.DeleteHouse(houseId);
+
+    return "Your house listing has been deleted.";
+  }
 }

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace gregslist_dotnet.Controllers;
 
 [ApiController]
@@ -24,7 +26,7 @@ public class HousesController : ControllerBase
     catch (Exception exception)
     {
 
-      throw new Exception(exception.Message);
+      return BadRequest(exception.Message);
     }
   }
 
@@ -39,7 +41,7 @@ public class HousesController : ControllerBase
     catch (Exception exception)
     {
 
-      throw new Exception(exception.Message);
+      return BadRequest(exception.Message);
     }
   }
 
@@ -58,9 +60,25 @@ public class HousesController : ControllerBase
     catch (Exception exception)
     {
 
-      throw new Exception(exception.Message);
+      return BadRequest(exception.Message);
     }
   }
 
+  [Authorize, HttpDelete("{houseId}")]
+  public async Task<ActionResult<string>> DeleteHouse(int houseId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      string message = _housesService.DeleteHouse(houseId, userInfo);
+      return message;
+    }
+    catch (Exception exception)
+    {
+
+      return BadRequest(exception.Message);
+    }
+  }
 
 }
