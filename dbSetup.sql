@@ -1,5 +1,6 @@
 
 -- NOTE you will need to create this table today
+-- you must send a GET request to the accounts endpoint with your bearer token in order to add your user to the sql database
 CREATE TABLE IF NOT EXISTS accounts(
   id VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'primary key',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
@@ -37,11 +38,15 @@ SELECT * FROM accounts;
 
 SELECT * FROM cars;
 
+-- NOTE JOIN is how we include multiple rows of data on the same row
+-- INNER JOIN denotes that there must be a match between the two columns, or no data is returned
+-- ON tells our database when to match up data, otherwise it will match everything to everything
 SELECT 
 cars.*,
 accounts.*
 FROM cars
 INNER JOIN accounts ON accounts.id = cars.creator_id;
+
 
 SELECT 
 cars.*,

@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace gregslist_dotnet.Controllers;
 
 // NOTE cs:api_controller
@@ -15,6 +13,7 @@ public class CarsController : ControllerBase
   }
 
   private readonly CarsService _carsService;
+  // NOTE don't forget to assign this a value!
   private readonly Auth0Provider _auth0Provider;
 
 
@@ -48,12 +47,13 @@ public class CarsController : ControllerBase
   }
 
 
-  [Authorize]
+  [Authorize] // you must be logged in to run the method directly below this data annotation
   [HttpPost]
   public async Task<ActionResult<Car>> CreateCar([FromBody] Car carData)
   {
     try
     {
+      // NOTE the information about the person making the request using their bearer token
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       carData.CreatorId = userInfo.Id;
       Car car = _carsService.CreateCar(carData);
