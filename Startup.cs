@@ -37,6 +37,9 @@ public class Startup
     services.AddScoped<AccountsRepository>();
     services.AddScoped<AccountService>();
 
+    services.AddScoped<HousesRepository>();
+    services.AddScoped<HousesService>();
+
     services.AddScoped<CarsService>();
     services.AddScoped<CarsRepository>();
   }
