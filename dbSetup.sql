@@ -80,7 +80,7 @@ INSERT INTO houses (
     has_pool,
     creator_id
   )
-VALUES ( 
+VALUES (
     2000,
     3,
     2,
@@ -90,6 +90,20 @@ VALUES (
     false,
     '67e1d5c3643b99e3ead7997b'
   );
+
+-- ALL HOUSES
+
+SELECT houses.*,
+  accounts.*
+FROM houses
+  INNER JOIN accounts ON accounts.id = houses.creator_id;
+
+--HOUSE BY ID
+SELECT houses.*, accounts.*
+FROM houses
+  INNER JOIN accounts ON accounts.id = houses.creator_id
+WHERE houses.id = 3;
+
 SELECT *
 FROM accounts;
 SELECT *
@@ -98,10 +112,7 @@ SELECT cars.*,
   accounts.*
 FROM cars
   INNER JOIN accounts ON accounts.id = cars.creator_id;
-SELECT houses.*,
-  accounts.*
-FROM houses
-  INNER JOIN accounts ON accounts.id = houses.creator_id;
+
 SELECT cars.*,
   accounts.*
 FROM cars

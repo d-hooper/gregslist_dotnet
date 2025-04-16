@@ -27,4 +27,19 @@ public class HousesController : ControllerBase
       throw new Exception(exception.Message);
     }
   }
+
+  [HttpGet("{houseId}")]
+  public ActionResult<House> GetHouseById(int houseId)
+  {
+    try
+    {
+      House house = _housesService.GetHouseById(houseId);
+      return Ok(house);
+    }
+    catch (Exception exception)
+    {
+
+      throw new Exception(exception.Message);
+    }
+  }
 }
