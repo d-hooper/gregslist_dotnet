@@ -23,9 +23,11 @@ public class CarsRepository
     FROM cars
     INNER JOIN accounts ON accounts.id = cars.creator_id;";
 
+    // NOTE we have multiple data types coming in on each row when we run this sql statement, so dapper needs to know how you are going to handle each piece of data with a mapping function (2nd argument)
+    // NOTE you need to know which order the different pieces of data are coming in on the rows, and cast those into objects (classes) that support them. dapper will default to splitting up the data by the id column
     List<Car> cars = _db.Query(sql, (Car car, Account account) =>
     {
-      car.Creator = account;
+      car.Creator = account; // sticks account object onto car
       return car;
     }).ToList();
 

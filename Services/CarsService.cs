@@ -20,10 +20,12 @@ public class CarsService
   internal Car GetCarById(int carId)
   {
     Car car = _carsRepository.GetCarById(carId);
+
     if (car == null)
     {
       throw new Exception($"No car found with the id of {carId}");
     }
+
     return car;
   }
 
@@ -35,7 +37,7 @@ public class CarsService
 
   internal string DeleteCar(int carId, Account userInfo)
   {
-    Car car = GetCarById(carId);
+    Car car = GetCarById(carId); //this.GetCarById()
 
     if (car.CreatorId != userInfo.Id)
     {
@@ -49,18 +51,20 @@ public class CarsService
 
   internal Car UpdateCar(int carId, Car carUpdateData, Account userInfo)
   {
-    Car car = GetCarById(carId);
+    Car car = GetCarById(carId); //this.GetCarById()
 
     if (car.CreatorId != userInfo.Id)
     {
       throw new Exception($"YOU ARE NOT ALLOWED TO UPDATE SOMEONE ELSE'S CAR, {userInfo.Name.ToUpper()}!");
     }
 
+    // ?? is null coalescing operator, checks to see if the left-hand side is null and defaults to the right if it is
     car.Make = carUpdateData.Make ?? car.Make;
     car.Model = carUpdateData.Model ?? car.Model;
-    // NOTE will only work if the int value is nullable in your model
+    // NOTE will only work if the int property is nullable in your model
     car.Price = carUpdateData.Price ?? car.Price;
     car.ImgUrl = carUpdateData.ImgUrl ?? car.ImgUrl;
+    // NOTE will only work if the bool property is nullable in your model
     car.HasCleanTitle = carUpdateData.HasCleanTitle ?? car.HasCleanTitle;
 
     _carsRepository.UpdateCar(car);
